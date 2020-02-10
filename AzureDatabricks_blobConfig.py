@@ -1,8 +1,8 @@
 # Databricks notebook source
 dbutils.fs.mount(
-  source = "wasbs://vmrootmaster@vmdatastoragedev.blob.core.windows.net",
-  mount_point = "/mnt/vmrootmaster",
-  extra_configs = {"fs.azure.account.key.vmdatastoragedev.blob.core.windows.net":dbutils.secrets.get(scope = "databricks_scope", key = "blob2vmblob")})
+  source = "wasbs://containername@storageaccountname.blob.core.windows.net",
+  mount_point = "/mnt/containername",
+  extra_configs = {"fs.azure.account.key.storageaccountname.blob.core.windows.net":dbutils.secrets.get(scope = "databricks_scope", key = "blob2vmblob")})
 
 # COMMAND ----------
 
@@ -10,7 +10,7 @@ dbutils.fs.ls("/mnt")
 
 # COMMAND ----------
 
-sampledf=spark.read.json("/mnt/vmrootmaster/small_radio_json.json")
+sampledf=spark.read.json("/mnt/containername/small_radio_json.json")
 
 # COMMAND ----------
 
@@ -26,14 +26,14 @@ display(newDF)
 
 # COMMAND ----------
 
-newDF.write.mode("overwrite").csv("/mnt/vmrootmaster/newfile.csv")
+newDF.write.mode("overwrite").csv("/mnt/containername/newfile.csv")
 
 # COMMAND ----------
 
 dbutils.fs.mount(
-  source = "wasbs://outputfolder@vmdatastoragedev.blob.core.windows.net",
-  mount_point = "/mnt/outputfolder",
-  extra_configs = {"fs.azure.account.key.vmdatastoragedev.blob.core.windows.net":dbutils.secrets.get(scope = "databricks_scope", key = "blob2vmblob")})
+  source = "wasbs://outputfolder@storageaccountname.blob.core.windows.net",
+  mount_point = "/mnt/containername",
+  extra_configs = {"fs.azure.account.key.storageaccountname.blob.core.windows.net":dbutils.secrets.get(scope = "databricks_scope", key = "blob2vmblob")})
 
 # COMMAND ----------
 
@@ -41,4 +41,4 @@ dbutils.fs.ls("/mnt")
 
 # COMMAND ----------
 
-newDF.write.mode("overwrite").csv("/mnt/outputfolder/newfile.csv")
+newDF.write.mode("overwrite").csv("/mnt/containername/newfile.csv")
