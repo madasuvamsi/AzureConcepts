@@ -3,6 +3,7 @@ dbutils.fs.mount(
   source = "wasbs://containername@storageaccountname.blob.core.windows.net",
   mount_point = "/mnt/containername",
   extra_configs = {"fs.azure.account.key.storageaccountname.blob.core.windows.net":dbutils.secrets.get(scope = "databricks_scope", key = "blob2vmblob")})
+#scope can be created in https://<Databricks_url>#secrets/createScope and we can get the resource id by running  Get-AzKeyVault command in cloud shell
 
 # COMMAND ----------
 
